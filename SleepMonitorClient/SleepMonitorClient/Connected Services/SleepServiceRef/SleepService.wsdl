@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://sleepmonitor.org/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://sleepmonitor.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://sleepmonitor.org/">
+      <s:element name="AddSleepEntry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sleepTime" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="wakeTime" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="sleepScore" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddSleepEntryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddSleepEntryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSleepEntry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sleepTime" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="wakeTime" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="sleepScore" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateSleepEntryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateSleepEntryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllSleepEntries">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllSleepEntriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllSleepEntriesResult" type="tns:ArrayOfSleepEntry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSleepEntry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SleepEntry" nillable="true" type="tns:SleepEntry" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SleepEntry">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SleepTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="WakeTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="SleepScore" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Notes" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteSleepEntry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteSleepEntryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteSleepEntryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AddSleepEntrySoapIn">
+    <wsdl:part name="parameters" element="tns:AddSleepEntry" />
+  </wsdl:message>
+  <wsdl:message name="AddSleepEntrySoapOut">
+    <wsdl:part name="parameters" element="tns:AddSleepEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSleepEntrySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateSleepEntry" />
+  </wsdl:message>
+  <wsdl:message name="UpdateSleepEntrySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateSleepEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSleepEntriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllSleepEntries" />
+  </wsdl:message>
+  <wsdl:message name="GetAllSleepEntriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllSleepEntriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteSleepEntrySoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteSleepEntry" />
+  </wsdl:message>
+  <wsdl:message name="DeleteSleepEntrySoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteSleepEntryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SleepServiceSoap">
+    <wsdl:operation name="AddSleepEntry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adaugă o noapte de somn</wsdl:documentation>
+      <wsdl:input message="tns:AddSleepEntrySoapIn" />
+      <wsdl:output message="tns:AddSleepEntrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSleepEntry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Modifică o intrare de somn</wsdl:documentation>
+      <wsdl:input message="tns:UpdateSleepEntrySoapIn" />
+      <wsdl:output message="tns:UpdateSleepEntrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSleepEntries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returnează toate înregistrările de somn</wsdl:documentation>
+      <wsdl:input message="tns:GetAllSleepEntriesSoapIn" />
+      <wsdl:output message="tns:GetAllSleepEntriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSleepEntry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Șterge o înregistrare de somn după ID</wsdl:documentation>
+      <wsdl:input message="tns:DeleteSleepEntrySoapIn" />
+      <wsdl:output message="tns:DeleteSleepEntrySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SleepServiceSoap" type="tns:SleepServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddSleepEntry">
+      <soap:operation soapAction="http://sleepmonitor.org/AddSleepEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSleepEntry">
+      <soap:operation soapAction="http://sleepmonitor.org/UpdateSleepEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSleepEntries">
+      <soap:operation soapAction="http://sleepmonitor.org/GetAllSleepEntries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSleepEntry">
+      <soap:operation soapAction="http://sleepmonitor.org/DeleteSleepEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SleepServiceSoap12" type="tns:SleepServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddSleepEntry">
+      <soap12:operation soapAction="http://sleepmonitor.org/AddSleepEntry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateSleepEntry">
+      <soap12:operation soapAction="http://sleepmonitor.org/UpdateSleepEntry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSleepEntries">
+      <soap12:operation soapAction="http://sleepmonitor.org/GetAllSleepEntries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSleepEntry">
+      <soap12:operation soapAction="http://sleepmonitor.org/DeleteSleepEntry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SleepService">
+    <wsdl:port name="SleepServiceSoap" binding="tns:SleepServiceSoap">
+      <soap:address location="https://localhost:44397/SleepService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SleepServiceSoap12" binding="tns:SleepServiceSoap12">
+      <soap12:address location="https://localhost:44397/SleepService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
